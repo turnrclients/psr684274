@@ -657,9 +657,9 @@ function createButton(text, id, clickHandler) {
     button.style.color = 'white';
     button.style.transition = 'background-color 0.3s ease';
     button.style.userSelect = 'none';
-    button.style.position = 'relative';
-    button.style.zIndex = '9999999';
-    button.style.pointerEvents = 'auto';
+    button.style.setProperty('position', 'relative', 'important');
+    button.style.setProperty('z-index', '9999999', 'important');
+    button.style.setProperty('pointer-events', 'auto', 'important');
 
     // Click handler
     button.addEventListener('click', function (e) {
