@@ -132,7 +132,7 @@ function showCustomAlertBox(type = 'error', message = 'Something went wrong', on
     var wrapper = $('#wrapper').addClass('editableSection');
 
     // Add top bar
-    var topBar = $('<div>', { id: 'top-bar', class: 'top-bar' }).insertBefore(wrapper);
+    // var topBar = $('<div>', { id: 'top-bar', class: 'top-bar' }).insertBefore(wrapper);
 
     // Add image upload form
     $('<form method="post" id="imgForm" enctype="multipart/form-data">').appendTo('body');
