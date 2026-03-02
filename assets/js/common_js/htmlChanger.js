@@ -595,41 +595,59 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Function to dynamically create and append the buttons
 function createButtons() {
-    // Create a container for the buttons
+
+    // Remove existing container if it exists (prevents duplicates)
+    const existing = document.getElementById('buttonContainer');
+    if (existing) existing.remove();
+
+    // Create container
     const buttonContainer = document.createElement('div');
-    buttonContainer.id = 'buttonContainer'; // Add an ID for styling
+    buttonContainer.id = 'buttonContainer';
 
-    // Add CSS styles to the container
+    // Strong positioning & layering protection
+    buttonContainer.style.position = 'fixed';
+    buttonContainer.style.bottom = '20px';
+    buttonContainer.style.left = '50%';
+    buttonContainer.style.transform = 'translateX(-50%)';
     buttonContainer.style.display = 'flex';
-    buttonContainer.style.justifyContent = 'center'; // Center the buttons horizontally
-    buttonContainer.style.alignItems = 'center'; // Vertically center the buttons
-    buttonContainer.style.flexWrap = 'wrap'; // Ensure buttons wrap if necessary
-    buttonContainer.style.gap = '15px'; // Adds more space between the buttons
-    buttonContainer.style.marginTop = '20px';
-    buttonContainer.style.marginBottom = '30px'; // Add some space below
+    buttonContainer.style.justifyContent = 'center';
+    buttonContainer.style.alignItems = 'center';
+    buttonContainer.style.gap = '15px';
+    buttonContainer.style.padding = '10px 20px';
+    buttonContainer.style.background = 'transparent';
+    buttonContainer.style.zIndex = '2147483647'; // Maximum safe z-index
+    buttonContainer.style.pointerEvents = 'auto';
+    buttonContainer.style.width = 'auto';
+    buttonContainer.style.height = 'auto';
 
-    // Create the buttons
-    const enableEditingBtn = createButton('Enable Text Editing', 'enableEditingBtn', enableTextEditing);
-    const saveChangesBtn = createButton('Save and Push Changes', 'saveChangesBtn', saveAndPushChanges);
-    const updateHTMLBtn = createButton('Update HTML with Changes', 'updateHTMLBtn', updateOriginalHTMLWithTextChanges);
+    // Create buttons
+    const enableEditingBtn = createButton('Enable Edit Mode', 'enableEditingBtn', enableTextEditing);
+    const saveChangesBtn = createButton('Publish Changes', 'saveChangesBtn', saveAndPushChanges);
+    const updateHTMLBtn = createButton('Save Changes', 'updateHTMLBtn', updateOriginalHTMLWithTextChanges);
 
-    // Append the buttons to the container
+    // Append buttons
     buttonContainer.appendChild(enableEditingBtn);
     buttonContainer.appendChild(saveChangesBtn);
     buttonContainer.appendChild(updateHTMLBtn);
 
-    // Append the button container to the body
+    // Append container to body
     document.body.appendChild(buttonContainer);
 }
 
 // Helper function to create buttons
 function createButton(text, id, clickHandler) {
+
     const button = document.createElement('button');
     button.textContent = text;
     button.id = id;
-    button.addEventListener('click', clickHandler);
 
-    // Style the button
+    // Ensure full click surface works
+    button.style.position = 'relative';
+    button.style.zIndex = '2147483647';
+    button.style.pointerEvents = 'auto';
+    button.style.display = 'inline-block';
+
+    // Style
     button.style.padding = '12px 24px';
     button.style.fontSize = '16px';
     button.style.cursor = 'pointer';
@@ -638,16 +656,24 @@ function createButton(text, id, clickHandler) {
     button.style.backgroundColor = '#4CAF50';
     button.style.color = 'white';
     button.style.transition = 'background-color 0.3s ease';
+    button.style.userSelect = 'none';
 
-    // Add hover and focus styles
-    button.addEventListener('mouseover', function () {
+    // Click handler
+    button.addEventListener('click', function (e) {
+        e.stopPropagation();
+        clickHandler();
+    });
+
+    // Hover effects
+    button.addEventListener('mouseenter', function () {
         button.style.backgroundColor = '#45a049';
     });
 
-    button.addEventListener('mouseout', function () {
+    button.addEventListener('mouseleave', function () {
         button.style.backgroundColor = '#4CAF50';
     });
 
+    // Focus effects
     button.addEventListener('focus', function () {
         button.style.boxShadow = '0 0 5px rgba(0, 128, 0, 0.6)';
         button.style.outline = 'none';
