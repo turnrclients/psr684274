@@ -129,7 +129,7 @@ function showCustomAlertBox(type = 'error', message = 'Something went wrong', on
 
 
     // Initialization
-    var wrapper = $('#wrapper').addClass('editableSection');
+    // var wrapper = $('#wrapper').addClass('editableSection');
 
     // Add top bar
     // var topBar = $('<div>', { id: 'top-bar', class: 'top-bar' }).insertBefore(wrapper);
