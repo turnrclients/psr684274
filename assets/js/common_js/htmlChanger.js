@@ -619,6 +619,9 @@ function createButtons() {
     buttonContainer.style.pointerEvents = 'auto';
     buttonContainer.style.width = 'auto';
     buttonContainer.style.height = 'auto';
+    buttonContainer.style.position = 'relative';
+    buttonContainer.style.zIndex = '9999999';
+    buttonContainer.style.pointerEvents = 'auto';
 
     // Create buttons
     const enableEditingBtn = createButton('Enable Edit Mode', 'enableEditingBtn', enableTextEditing);
